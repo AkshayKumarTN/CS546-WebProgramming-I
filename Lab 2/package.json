@@ -1,0 +1,13 @@
+{
+  "name": "cs-546-lab-2",
+  "version": "1.0.0",
+  "description": "My lab 2 module to familiarize myself with Node.js and JavaScript syntax.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Akshay Kumar Talur Narasimmulu 20032052",
+  "license": "ISC"
+}
