@@ -14,15 +14,13 @@ export const createReview = async (
   helpers.inputStringCheck(reviewTitle, 'reviewTitle');
   helpers.inputStringCheck(reviewerName, 'reviewerName');
   helpers.inputStringCheck(review, 'review');
-
-  movieId = movieId.trim();
-  if (!ObjectId.isValid(movieId)) throw 'Error: invalid object ID';
+  helpers.CheckReviewRating(rating);
+  
+  movieId = helpers.checkId(movieId);
 
   const moviesCollection = await movies();
   const movieData = await moviesCollection.findOne({ _id: new ObjectId(movieId) });
   if (movieData === null) throw 'Error: No movie with that id';
-
-  if (rating !== 'number' || rating < 1 || rating > 5 || /^-?\d+(\.\d{1})?$/.test(rating)) throw 'Error: rating must be a number between 1 and 5, with no more than one decimal place.';
 
   // reviewDate
   const today = new Date();
@@ -53,40 +51,54 @@ export const createReview = async (
   if (!updatedInfo) {
     throw 'Error: could not update movie successfully';
   }
-  updatedInfo._id = updatedInfo._id.toString();
   return updatedInfo;
 
 };
 
 export const getAllReviews = async (movieId) => {
-  helpers.inputStringCheck(movieId, 'movieId');
-  movieId = movieId.trim();
-  if (!ObjectId.isValid(movieId)) throw 'Error: invalid object ID';
-
+  movieId = helpers.checkId(movieId);
   const moviesCollection = await movies();
   const movieData = await moviesCollection.findOne({ _id: new ObjectId(movieId) });
   if (movieData === null) throw 'Error: No movie with that id';
   return movieData.reviews;
-
 };
 
 export const getReview = async (reviewId) => {
-  helpers.inputStringCheck(reviewId, 'reviewId');
-  reviewId = reviewId.trim();
-  if (!ObjectId.isValid(reviewId)) throw 'Error: invalid object ID';
-
+  reviewId = helpers.checkId(reviewId);
   const moviesCollection = await movies();
   const foundReview = await moviesCollection.findOne(
-    {'reviews._id': reviewId},
+    {'reviews._id': new ObjectId(reviewId)},
     {projection: {_id: 0, 'reviews.$': 1}}
   );
-  if (!foundReview) throw 'Review Not found';
-    console.log(foundReview.reviews);
+  if (!foundReview) throw 'Error: Review Not found';
     return foundReview.reviews[0];
-
  };
 
  export const removeReview = async (reviewId) => {
+  reviewId = helpers.checkId(reviewId);
+  const moviesCollection = await movies();
+  const foundMovie = await moviesCollection.findOne(
+    {'reviews._id': new ObjectId(reviewId)},
+  );
+  if (!foundMovie) throw 'Error: Review Not found';
+
+  const updatedReviews = foundMovie.reviews.filter(
+    (review) => review._id.toString() !== reviewId
+  );
+  const { _id, ...updatedMovieData } = foundMovie;
+
+  updatedMovieData.reviews = updatedReviews;
+  updatedMovieData.overallRating = await calculateOverallRating(updatedMovieData.reviews);
+
+  const updatedInfo = await moviesCollection.findOneAndUpdate(
+    { _id: _id },
+    { $set: updatedMovieData },
+    { returnDocument: 'after' }
+  );
+  if (!updatedInfo) {
+    throw 'Error: could not remove review successfully';
+  }
+  return updatedInfo;
 
  };
 

@@ -38,12 +38,16 @@ const exportedMethods = {
     // const [spcitalChar, hrs, mins] = (runTimeString.match(runtimeRegex)).map(Number);
     if (!((hrs > 0 && mins >= 0 && mins < 60) || (hrs == 0 && mins > 30 && mins < 60))) throw `Error: Runtime #min must be 0 to 59 and Runtime should be minimum of at least 0h 31min.`;
   },
+  
+  // Id Check...............
   checkId(id) {
     this.inputStringCheck(id, 'ID');
     id = id.trim();
     if (!ObjectId.isValid(id)) throw 'Error: invalid object ID';
     return id;
   },
+
+  // Movie....................
   CheckTitle(title) {
     this.inputStringCheck(title, 'title');
     if (title.trim().length < 2 || !/^[a-zA-Z0-9\s]+$/.test(title.trim())) throw "Error: Title must be at least two characters and can contain only letters and numbers. No special characters or punctuation";
@@ -72,8 +76,12 @@ const exportedMethods = {
     if (!castMembers) throw 'Error: castMembers fields need to have valid values';
   if (!Array.isArray(castMembers) || castMembers == undefined || castMembers.length == 0 || !castMembers.every(item => typeof item === "string" && item.trim().length >= 7 && /^[a-zA-Z]{3,} [a-zA-Z]{3,}$/.test(item.trim()) && !item.trim().includes('  '))) throw 'Error: castMembers must be an array of strings, must have the following format "first name space last name" and first name and last name must be at least 3 characters each and only letters a-z or A-Z. No numbers or special characters.';
   
-  }
+  },
 
+  // review........................
+  CheckReviewRating(rating){
+    if (typeof rating !== 'number' || rating < 1 || rating > 5 || Math.round(rating * 10) / 10 !== rating) throw 'Error: rating must be a number between 1 and 5, with no more than one decimal place.';
+  }
 
 }
 
