@@ -47,7 +47,7 @@ router.route('/:movieId')
       );
       return res.json(MovieData);
     } catch (e) {
-      return res.sendStatus(404).json(e);
+      return res.status(404).json(e);
     }
 
   });

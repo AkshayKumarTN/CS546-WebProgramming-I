@@ -11,7 +11,7 @@ router.route('/')
       const newMovie = await movieMethods.getAllMovies();
       return res.json(newMovie);
     } catch (e) {
-      return res.sendStatus(500);
+      return res.status(500).json(e);
     }
     //code here for GET
   })
@@ -59,7 +59,7 @@ router.route('/')
       );
       return res.json(newMovie);
     } catch (e) {
-      return res.sendStatus(500);
+      return res.status(500).json(e);
     }
   });
 
@@ -141,7 +141,7 @@ router.route('/:movieId')
       );
       return res.json(newMovie);
     } catch (e) {
-      return res.sendStatus(500);
+      return res.status(404).json(e);
     }
 
   });
