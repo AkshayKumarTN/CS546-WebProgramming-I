@@ -1,5 +1,10 @@
 # Node modules
 node_modules/
+Lab*/node_modules/
+
+# Optional: ignore system files or other unwanted stuff
+.DS_Store
+*.log
 
 # Logs
 logs/
