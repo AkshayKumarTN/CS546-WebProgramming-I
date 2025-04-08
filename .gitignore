@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables
+.env
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Build output
+dist/
+build/
+
+# Public generated content (if built dynamically)
+public/bundle.js
+public/bundle.js.map
+
+# Coverage and test outputs
+coverage/
+.nyc_output/

@@ -1,7 +1,7 @@
 {
   "name": "cs-546-lab-8",
   "version": "1.0.0",
-  "description": "",
+  "description": "My lab 8 module to familiarize myself with HTML, CSS, and Handlebars to make my first simple templated web application.",
   "main": "app.js",
   "type": "module",
   "scripts": {
