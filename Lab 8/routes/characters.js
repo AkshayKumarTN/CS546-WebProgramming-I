@@ -11,7 +11,7 @@ router.route('/').get(async (req, res) => {
   res.render('home',{title: 'Marvel Universe Character Search'});
   } catch (e) {
     return res.status(500).render('error', {
-      title: 'Error',
+      title: '500 - Error',
       errorMessage: e
     });
   }
@@ -22,7 +22,7 @@ router.route('/searchmarveluniverse').post(async (req, res) => {
   let marvelSearch = req.body;
   if (!marvelSearch || Object.keys(marvelSearch).length === 0) {
     return res.status(400).render('error', {
-      title: 'Error',
+      title: '400 - Error',
       errorMessage: 'There are no fields in the request body.'
     });
   }
@@ -31,7 +31,7 @@ router.route('/searchmarveluniverse').post(async (req, res) => {
     helpers.inputStringCheck(marvelSearch.searchByCharactersName, 'character name');
   } catch (e) {
     return res.status(400).render('error', {
-      title: 'Error',
+      title: '400 - Error',
       errorMessage: e
     });
   }
@@ -46,7 +46,7 @@ router.route('/searchmarveluniverse').post(async (req, res) => {
   }
   catch (e) {
     return res.status(500).render('error', {
-      title: 'Error',
+      title: '500- Error',
       errorMessage: 'An error occurred while fetching character data. Please try again.'
     });
   }
@@ -58,7 +58,7 @@ router.route('/character/:id').get(async (req, res) => {
     req.params.id = helpers.checkId(req.params.id);
   } catch (e) {
     return res.status(400).render('error', {
-      title: 'Error',
+      title: '400 - Error',
       errorMessage: e
     });
   }
@@ -66,7 +66,7 @@ router.route('/character/:id').get(async (req, res) => {
     const result  = await characterMethods.getCharacterById(req.params.id);
     const character = result?.data?.results?.[0];
     if (!character) {
-      throw 'Not Found';
+      throw '404 -Not Found';
     }
     const thumbnailUrl = `${character.thumbnail.path}/portrait_uncanny.jpg`;
 
@@ -80,7 +80,7 @@ router.route('/character/:id').get(async (req, res) => {
 
   } catch (e) {
     return res.status(404).render('error', {
-      title: 'Not Found',
+      title: '404 - Not Found',
       errorMessage: `No character found with ID: ${req.params.id}`
     });
   }
