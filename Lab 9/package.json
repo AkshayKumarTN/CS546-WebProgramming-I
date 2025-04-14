@@ -1,0 +1,16 @@
+{
+  "name": "cs-546-lab-9",
+  "version": "1.0.0",
+  "description": "My lab 9 module to familiarize myself with HTML, CSS, and JavaScript on the user's browser to make a simple array sor",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Akshay Kumar Talur Narasimmulu 20032052",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

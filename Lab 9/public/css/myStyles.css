@@ -1,0 +1,97 @@
+/*
+You will style your page using at least 10 CSS rule-sets for general CSS styling. You will place the CSS in this file.
+
+You must style the is-odd class to make text have a color of #0000FF and is-even class to make text have a color of #FF0000. Both is-odd and is-even should also be bold (these can count as 2 of your 10 rule-sets) 
+*/
+/*This file should have 10 CSS rulesets */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    /* background-color: #f5f5f5; */
+
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+    h1 {
+        text-align: center;
+        color: #FFFF;
+        background-color: #d32f2f;
+        padding: 5px 10px;
+    }
+
+    main {
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: red;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #d32f2f;
+            font-weight: 600;
+            font-size: 14px;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+
+        button:hover {
+            background-color: #b71c1c;
+        }
+
+        li {
+            margin: 5px;
+        }
+
+        .is-odd {
+            color: #0000FF;
+            font-weight: bold;
+        }
+
+        .is-even {
+            color: #FF0000;
+            font-weight: bold;
+        }
+    }
+
+    footer {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+}
