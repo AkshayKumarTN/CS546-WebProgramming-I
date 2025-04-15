@@ -1,7 +1,7 @@
 {
   "name": "cs-546-lab-9",
   "version": "1.0.0",
-  "description": "My lab 9 module to familiarize myself with HTML, CSS, and JavaScript on the user's browser to make a simple array sor",
+  "description": "My lab 9 module to familiarize myself with HTML, CSS, and JavaScript on the user's browser to make a simple array sort",
   "main": "app.js",
   "type": "module",
   "scripts": {

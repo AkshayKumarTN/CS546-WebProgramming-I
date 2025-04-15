@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const errorTag = document.getElementById("error");
     const list = document.getElementById("input_sorted");
     const showError = (message) => {
-        errorTag.innerHTML = "Error: "+message;
+        errorTag.innerHTML = "Error: " + message;
         errorTag.hidden = false;
         inputArray.focus();
 
@@ -56,34 +56,85 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         let wholeNumbersArray = [];
         try {
+
+            const cleanedInputData = InputData.replace(/\s+/g, ''); // remove all whitespace
+            const outsideArrays = cleanedInputData.replace(/\[[^\[\]]*\]/g, "").replace(/,/g, ""); // getting values which are ouside arrays
+            if (outsideArrays.length > 0) {
+                showError("Input contains values outside of arrays (e.g., '5' or '9'). Wrap all values inside []. Also Nested arrays are not allowed.");
+                return;
+            }
+
+            // Check for basic structure issues (like "][", "][[", trailing or leading commas)
+            if (/\][^\],\s]/.test(InputData) || /\][\[]/.test(InputData)) {
+                showError("Missing commas or incorrect brackets between arrays (e.g., ][ ) (expected: ],[ ).");
+                return;
+            }
+
+            // Count brackets to catch unbalanced structure
+            const openingCount = (InputData.match(/\[/g) || []).length;
+            const closingCount = (InputData.match(/\]/g) || []).length;
+
+            if (openingCount !== closingCount) {
+                showError("Mismatched brackets. Ensure every opening '[' has a matching closing ']'.");
+                return;
+            }
+
+            // Check for empty arrays or trailing opening bracket
+            if (/\[\s*\]/.test(InputData)) {
+                showError("One or more arrays are empty.");
+                return;
+            }
+
+            if (/\[\s*$/.test(InputData)) {
+                showError("Incomplete array detected (e.g., '[' with no closing ']').");
+                return;
+            }
+
             if (/\]\s*\[/.test(InputData)) {
                 showError("Missing comma between arrays. Arrays must be separated by commas.");
                 return;
-              }
-            const extratedArray = InputData.match(/\[[^\[\]]*\]/g);
-            if (!extratedArray || extratedArray.length === 0) {
+            }
+            //  Checking for decimals points like 1.0, 2.0, 2.5
+            if (/\b\d+\.\d+\b/.test(InputData)) {
+                showError("Decimal numbers like 1.0 or 2.5 are not allowed. Only whole numbers are allowed. (Negative numbers and 0 are allowed)");
+                return;
+            }
+            const extractedArray = InputData.match(/\[[^\[\]]*\]/g);
+
+            if (!extractedArray || extractedArray.length === 0) {
                 showError("Input must contain at least one array with Only whole numbers. (Negative numbers and 0 are allowed)");
                 return;
             }
-            for (const arrryItem of extratedArray) {
-                const filteredValues = arrryItem.replace(/[\[\]\s]/g, "") .split(",").map(x => x.trim());
-          
-                if (filteredValues.length === 0) {
-                  showError("Input Array has One or more empty array or empty element.");
-                  return;
-                }
-          
-                for (const val of filteredValues) {
-                  if (!/^-?\d+$/.test(val)) {
-                    showError(`Array element: ${val}. Only whole numbers allowed. (Negative numbers and 0 are allowed)`);
+            for (const arrryStringItem of extractedArray) {
+                const arrryItem = JSON.parse(arrryStringItem);
+                if (!Array.isArray(arrryItem)) {
+                    showError("Invalid array syntax.");
                     return;
-                  }
-                  wholeNumbersArray.push(parseInt(val, 10));
                 }
-              }
+                if (arrryItem.length === 0) {
+                    showError("Input Array has One or more empty array or empty element.");
+                    return;
+                }
+
+                for (const val of arrryItem) {
+                    if (val === "" || val === null || val === undefined) {
+                        showError("One or more array elements are empty.");
+                        return;
+                    }      
+                    if (typeof val === "string" && val.trim() === "") {
+                        showError("One or more elements are empty or invalid.");
+                        return;
+                    }
+                    if (typeof val !== "number" || !Number.isInteger(val)) {
+                        showError(`Invalid value "${val}". Only whole numbers are allowed. (Negative numbers and 0 are allowed)`);
+                        return;
+                    }
+                    wholeNumbersArray.push(val);
+                }
+            }
 
         } catch (err) {
-            showError(typeof err === "string" ? err : "Invalid input.");
+            showError(typeof err === "string" ? err : "Invalid input. Only whole numbers are allowed. (Negative numbers and 0 are allowed)");
             return;
         }
         const sortedArray = [...new Set(wholeNumbersArray)].sort((a, b) => a - b);
