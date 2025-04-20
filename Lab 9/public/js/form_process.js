@@ -57,12 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let wholeNumbersArray = [];
         try {
 
-            const cleanedInputData = InputData.replace(/\s+/g, ''); // remove all whitespace
-            const outsideArrays = cleanedInputData.replace(/\[[^\[\]]*\]/g, "").replace(/,/g, ""); // getting values which are ouside arrays
-            if (outsideArrays.length > 0) {
-                showError("Input contains values outside of arrays (e.g., '5' or '9'). Wrap all values inside []. Also Nested arrays are not allowed.");
-                return;
-            }
+           
 
             // Check for basic structure issues (like "][", "][[", trailing or leading commas)
             if (/\][^\],\s]/.test(InputData) || /\][\[]/.test(InputData)) {
@@ -92,6 +87,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (/\]\s*\[/.test(InputData)) {
                 showError("Missing comma between arrays. Arrays must be separated by commas.");
+                return;
+            }
+            const cleanedInputData = InputData.replace(/\s+/g, ''); // remove all whitespace
+            const outsideArrays = cleanedInputData.replace(/\[[^\[\]]*\]/g, "").replace(/,/g, ""); // getting values which are ouside arrays
+            if (outsideArrays.length > 0) {
+                showError("Input contains values outside of arrays (e.g., '5' or '9'). Wrap all values inside []. Also Nested arrays are not allowed.");
                 return;
             }
             //  Checking for decimals points like 1.0, 2.0, 2.5
