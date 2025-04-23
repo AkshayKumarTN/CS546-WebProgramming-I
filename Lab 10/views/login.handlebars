@@ -3,3 +3,25 @@
 login form handlebar template
 
 --}}
+
+<h1>{{title}}</h1>
+
+<form id="signin-form" method="POST" action="/login">
+  <div class="cls-userId">
+    <label for="userId">User ID:</label>
+    <input type="text" id="userId" name="userId" required />
+  </div>
+
+  <div class="cls-password">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required />
+  </div>
+
+  <div>
+    <button type="submit" id="submit_button" name="submit_button">Sign In</button>
+  </div>
+</form>
+
+<p>
+  <a id="signuplink" href="/register">Click here to signup!</a>
+</p>

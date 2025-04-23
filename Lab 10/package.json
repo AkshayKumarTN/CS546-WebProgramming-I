@@ -9,5 +9,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Akshay Kumar Talur Narasimmulu 20032052",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "express-handlebars": "^7.1.2",
+    "mongodb": "^6.15.0",
+		"bcryptjs": "^2.4.3",
+ 		"cookie-parser": "^1.4.6"
+  }
 }
