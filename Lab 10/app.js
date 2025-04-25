@@ -48,12 +48,36 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/user', (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect('/');
+app.get('/login', (req, res, next) => {
+  if (req.session.user) {
+    const user = req.session.user;
+    if (user.role === 'superuser') {
+      return res.redirect('/superuser');
+    } else {
+      return res.redirect('/user');
+    }
   }
   next();
 });
+app.get('/register', (req, res, next) => {
+  if (req.session.user) {
+    const user = req.session.user;
+    if (user.role === 'superuser') {
+      return res.redirect('/superuser');
+    } else {
+      return res.redirect('/user');
+    }
+  }
+  next();
+});
+
+app.use('/user', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+  next();
+});
+
 app.use('/superuser', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/login');
@@ -77,28 +101,7 @@ app.get('/signout', (req, res, next) => {
   next();
 });
 
-app.get('/login', (req, res, next) => {
-  if (req.session.user) {
-    const user = req.session.user;
-    if (user.role === 'superuser') {
-      return res.redirect('/superuser');
-    } else {
-      return res.redirect('/user');
-    }
-  }
-  next();
-});
-app.get('/register', (req, res, next) => {
-  if (req.session.user) {
-    const user = req.session.user;
-    if (user.role === 'superuser') {
-      return res.redirect('/superuser');
-    } else {
-      return res.redirect('/user');
-    }
-  }
-  next();
-});
+
 
 configRoutes(app);
 
