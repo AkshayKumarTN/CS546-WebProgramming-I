@@ -5,23 +5,25 @@ login form handlebar template
 --}}
 
 <h1>{{title}}</h1>
+<p id="error" class="errorMessage" hidden></p>
+<p id="errorMessage" class="errorMessage" hidden>{{errorMessage}}</p>
 
-<form id="signin-form" method="POST" action="/login">
-  <div class="cls-userId">
-    <label for="userId">User ID:</label>
-    <input type="text" id="userId" name="userId" required />
-  </div>
+<form id="signin-form" action="/login" method="POST">
+    <div class="cls-userId">
+        <label for="userId">User ID:</label>
+        <input type="text" id="userId" name="userId" />
+    </div>
 
-  <div class="cls-password">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required />
-  </div>
+    <div class="cls-password">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" />
+    </div>
 
-  <div>
-    <button type="submit" id="submit_button" name="submit_button">Sign In</button>
-  </div>
+    <div>
+        <button type="submit" id="submit_button" name="submit_button">Sign In</button>
+    </div>
 </form>
 
 <p>
-  <a id="signuplink" href="/register">Click here to signup!</a>
+    <a id="signuplink" class="navlink" href="/register">Click here to signup!</a>
 </p>

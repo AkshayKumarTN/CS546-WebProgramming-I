@@ -1,20 +1,20 @@
 <h1 id="appTitle">{{title}}</h1>
 <p id="siteDescription">
-  Welcome to Lab 10 of CS-546. This application shows a basic login system that allows users to register and sign in securely. 
+    Welcome to Lab 10 of CS-546. This application shows a basic login system that allows users to register and sign in
+    securely.
 </p>
 
 {{!-- Check if user is logged in --}}
 {{#if loggedIn}}
-    {{!-- If user is logged in, check if they are a superuser --}}
-    {{#if isSuperuser}}
-        <a id="userlink" href="/user">User Page</a>
-        <a id="superuserlink" href="/superuser">Super User Page</a>
-    {{else}}
-        <a id="userlink" href="/user">User Page</a>
-    {{/if}}
+{{!-- If user is logged in, check if they are a superuser --}}
+{{#if isSuperuser}}
+<a id="userlink" class="navlink" href="/user">User Page</a>
+<a id="superuserlink" class="navlink" href="/superuser">Super User Page</a>
 {{else}}
-    {{!-- If user is NOT logged in --}}
-    <a id="signuplink" href="/register">Register Here</a>
-    <a id="loginlink" href="/login">Login Here</a>
+<a id="userlink" class="navlink" href="/user">User Page</a>
 {{/if}}
-
+{{else}}
+{{!-- If user is NOT logged in --}}
+<a id="signuplink" class="navlink" href="/register">Register Here</a>
+<a id="loginlink" class="navlink" href="/login">Login Here</a>
+{{/if}}
