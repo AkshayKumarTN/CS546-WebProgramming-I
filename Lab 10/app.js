@@ -101,6 +101,16 @@ app.get('/signout', (req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  if (req.session && req.session.user && req.session.user.themePreference) {
+    res.locals.backgroundColor = req.session.user.themePreference.backgroundColor || '#ffffff';
+    res.locals.fontColor = req.session.user.themePreference.fontColor || '#000000';
+  } else {
+    res.locals.backgroundColor = '#ffffff';
+    res.locals.fontColor = '#000000';
+  }
+  next();
+});
 
 
 configRoutes(app);

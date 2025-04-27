@@ -62,7 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // password ....................
     const CheckPassword = (password) => {
         if (!inputStringCheck(password, 'password')) return false;
-        password = password.trim();
+        if (password.includes(' ')) {
+            showError('password Input is Invalid - spaces are not allowed.');
+            return false;
+        }
         if (/\s/.test(password)) {
             showError('Password cannot contain spaces.');
             return false;
@@ -143,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const password = document.getElementById("password");
 
                 const userIdValue = userId.value.trim();
-                const passwordValue = password.value.trim();
+                const passwordValue = password.value;
                 if (!CheckUserId(userIdValue)) {
                     event.preventDefault();
                     return;
@@ -175,8 +178,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const role = document.getElementById("role");
 
                 const userIdValue = userId.value.trim();
-                const passwordValue = password.value.trim();
-                const confirmPasswordValue = confirmPassword.value.trim();
+                const passwordValue = password.value;
+                const confirmPasswordValue = confirmPassword.value;
                 const firstNameValue = firstName.value.trim();
                 const lastNameValue = lastName.value.trim();
                 const quoteValue = favoriteQuote.value.trim();

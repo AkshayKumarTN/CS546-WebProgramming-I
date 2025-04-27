@@ -42,7 +42,7 @@ const exportedMethods = {
     // password ....................
     CheckPassword(password) {
         this.inputStringCheck(password, 'password');
-        password = password.trim();
+        if (password.includes(' ')) throw 'password Input is Invalid - spaces are not allowed.';
         if (/\s/.test(password)) {
             throw 'Password cannot contain spaces.';
         }

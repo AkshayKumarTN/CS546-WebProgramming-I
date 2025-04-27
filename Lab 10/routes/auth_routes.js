@@ -7,7 +7,18 @@ const router = Router();
 router.route('/').get(async (req, res) => {
   //code here for GET
   try {
-    res.render('home', { title: 'Lab 10 - Login System' });
+    if (req.session.user) {
+      const user = req.session.user;
+      const isSuperuser = user.role === 'superuser';
+      res.render('home', { 
+        title: 'Lab 10 - Login System',
+        loggedIn: true,
+        isSuperuser: isSuperuser
+       });
+    }
+    else{
+      res.render('home', { title: 'Lab 10 - Login System' });
+    }
   } catch (e) {
     return res.status(500).render('error', {
       title: '500 - Error',

@@ -36,7 +36,7 @@ export const register = async (
   const signupDate = `${mm}/${dd}/${yyyy}`;
   const saltRounds = 16;
 
-  const hashPassword = await bcrypt.hash(password.trim(), saltRounds);
+  const hashPassword = await bcrypt.hash(password, saltRounds);
 
   const userData = {
     firstName: firstName.trim(),
