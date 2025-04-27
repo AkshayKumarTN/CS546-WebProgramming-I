@@ -88,7 +88,9 @@ app.use('/superuser', (req, res, next) => {
       title: 'Access Denied',
       errorMessage: 'You do not have permission to view this page.',
       redirectLink: '/user',
-      linkText: 'Go to User Dashboard'
+      linkText: 'Go to User Dashboard',
+      backgroundColor: user.themePreference.backgroundColor,
+      fontColor: user.themePreference.fontColor
     });
   }
   next();
