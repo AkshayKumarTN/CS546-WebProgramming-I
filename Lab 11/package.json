@@ -1,0 +1,16 @@
+{
+  "name": "cs-546-lab-11",
+  "version": "1.0.0",
+  "description": "My lab 11 module to familiarize myself with HTML, JQuery and Client-side JavaScript on the user's browser to make a simple application that makes AJAX requests for the data needed and then inject the elements and data onto the page. ",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Akshay Kumar Talur Narasimmulu 20032052",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

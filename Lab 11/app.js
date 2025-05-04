@@ -1,8 +1,9 @@
-//Here is where you'll set up your server as shown in lecture code
+// Code server here
+// Your server this week should not do any of the processing or calculations
+// Your server only exists to allow someone to get to the HTML Page and download the associated assets to run the application
 import express from 'express';
 const app = express();
 import configRoutes from './routes/index.js';
-import exphbs from 'express-handlebars';
 
 const rewriteUnsupportedBrowserMethods = (req, res, next) => {
   // If the user posts to the server with a property called _method, rewrite the request's method
@@ -22,12 +23,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(rewriteUnsupportedBrowserMethods);
 
-app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
-
 configRoutes(app);
 
-app.listen(3001, () => {
+app.listen(3000, () => {
   console.log("We've now got a server!");
-  console.log('Your routes will be running on http://localhost:3001');
+  console.log('Your routes will be running on http://localhost:3000');
 });

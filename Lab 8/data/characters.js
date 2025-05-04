@@ -3,8 +3,8 @@ import axios from "axios";
 import md5 from 'blueimp-md5' //you will need to install this module;
 
 const buildMarvelAPIUrl = async (marvelParameter, marvelCharacterId) => {
-  const publickey = '1c8b9d7cc609a74409bfbcde5a81e04c';
-  const privatekey = 'a993d42b63b7fa67e63d9908ab2d36948acca0ea';
+  const publickey = '122c8b876052c4846a5454f62350c9d5';
+  const privatekey = '3a02a124e2ba2ba99adc8b72a28201af1533843b';
   const ts = new Date().getTime();
   const stringToHash = ts + privatekey + publickey;
   const hash = md5(stringToHash);
