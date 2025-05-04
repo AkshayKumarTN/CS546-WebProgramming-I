@@ -84,13 +84,18 @@ function GetCharacterById(marvelCharacterId) {
         .then(data => {
             const char = data.data.results[0];
             let comicsList = '';
-            char.comics.items.forEach(comic => {
-                comicsList += `<li>${comic.name}</li>`;
-            });
+            if (char?.comics?.items?.length > 0) {
+                char.comics.items.forEach(comic => {
+                    comicsList += `<li>${comic.name}</li>`;
+                });
+            }
+            else{
+                comicsList = '<li>N/A</li>';
+            }
             $('#characterDetails').html(`
-                <h1>${char.name}</h1>
-                <img src="${char.thumbnail.path}/portrait_uncanny.jpg" alt="${char.name}">
-                <p>${char.description || 'No description available.'}</p>
+                <h1>${char?.name}</h1>
+                <img src="${char?.thumbnail?.path}/portrait_uncanny.jpg" alt="${char?.name || 'N/A'}">
+                <p>${char?.description || 'N/A (No description available.)'}</p>
                 <h2>Comics</h2>
                 <ul>
                     ${comicsList}
@@ -129,7 +134,9 @@ function searchCharactersByName() {
                 $('#characterDetails').prop('hidden', true);
                 showHomeLink(true);
                 if (data.data.count === 0) {
-                    $('#characterList').append('<li>No results found.</li>');
+                    $('#characterList').append(
+                        `<p class="not-found">We're sorry, but no results were found for "${charactersName}".</p>`
+                    );
                 } else {
                     data.data.results.forEach(char => {
                         const li = $('<li>');
