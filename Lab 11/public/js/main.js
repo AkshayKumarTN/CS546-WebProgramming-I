@@ -68,7 +68,7 @@ function GetAllCharacters() {
 
             data.data.results.forEach(char => {
                 const li = $('<li>');
-                const a = $('<a>').attr('href', '#').text(char.name).click(() => {
+                const a = $('<a>').text(char.name).css('cursor', 'pointer').click(() => {
                     GetCharacterById(char.id);
                 });
                 li.append(a);
@@ -133,7 +133,7 @@ function searchCharactersByName() {
                 } else {
                     data.data.results.forEach(char => {
                         const li = $('<li>');
-                        const a = $('<a>').attr('href', '#').text(char.name).click(() => {
+                        const a = $('<a>').text(char.name).css('cursor', 'pointer').click(() => {
                             GetCharacterById(char.id);
                         });
                         li.append(a);
